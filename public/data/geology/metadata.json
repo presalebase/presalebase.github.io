@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-09-14T04:28:33.569Z",
+  "source": "NCDR / Geological Survey and Mining Management Agency WMS",
+  "bounds": {
+    "west": 121.3,
+    "south": 24.8,
+    "east": 121.75,
+    "north": 25.25
+  },
+  "width": 2048,
+  "height": 2260,
+  "layers": {
+    "soil-liquefaction": 0,
+    "active-faults": 1
+  }
+}

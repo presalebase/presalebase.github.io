@@ -1,0 +1,20 @@
+.map-project-marker{display:grid;place-items:center;width:30px;height:30px;padding:0;border:3px solid #fff;border-radius:50%;box-shadow:0 4px 14px #0005;font:700 11px Outfit;cursor:pointer}
+.map-project-marker.marker-s{background:var(--ink);color:var(--lime)}
+.map-project-marker.marker-a{background:var(--green);color:#fff}
+.map-project-marker.marker-b{background:#c69a32;color:#201b0e}
+.map-project-marker.marker-c{background:#9da6a2;color:#fff}
+.map-project-marker.marker-nr{background:#7b8580;color:#fff}
+.map-project-marker.marker-pending{opacity:.6!important;box-shadow:0 2px 7px rgba(20,35,29,.16)}
+.map-project-marker.marker-pending:hover,.map-project-marker.marker-pending:focus{opacity:.88!important}
+.map-project-marker.marker-estimated{opacity:.68!important;box-shadow:0 2px 9px rgba(20,35,29,.22)}
+.map-project-marker.marker-estimated:hover,.map-project-marker.marker-estimated:focus{opacity:.92!important}
+.station-symbol{width:11px;height:11px;border:3px solid #68736d;border-radius:50%;background:#fff;display:inline-block}
+.filter-panel,.mature-filters{grid-template-columns:repeat(6,minmax(105px,1fr)) 1.4fr}
+@media(max-width:900px){.filter-panel,.mature-filters{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.filter-panel,.mature-filters{grid-template-columns:1fr}}
+.separate-transit-filter{display:none}
+@media(max-width:900px){.combined-transit-filter{display:none}.separate-transit-filter{display:block}}
+.popup-location-warning{display:block;margin:-2px 0 8px;padding:6px 8px;background:#fff0d3;color:#875700;font-size:11px;line-height:1.45}
+.maplibregl-popup-content{border-radius:4px;padding:14px 16px;box-shadow:0 10px 30px #0003}
+.maplibregl-ctrl-attrib{font-size:10px}
+.map-legend .rail.building{height:4px;background:#9bcf55}

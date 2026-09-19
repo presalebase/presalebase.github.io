@@ -1,0 +1,18 @@
+{
+  "name": "presale-base",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "data:flood": "node scripts/cache-flood-layers.mjs",
+    "data:geology": "node scripts/cache-geology-layers.mjs",
+    "data:hazards": "node scripts/cache-environment-facilities.mjs",
+    "data:developer-risks": "node scripts/audit-developer-risks.mjs",
+    "dev": "vite --configLoader runner",
+    "build": "vite build --configLoader runner",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^7.1.5"
+  }
+}

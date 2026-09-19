@@ -1,0 +1,24 @@
+{
+  "generatedAt": "2026-09-13T23:37:54.017Z",
+  "source": "NCDR / Water Resources Agency WMS",
+  "bounds": {
+    "west": 121.46,
+    "south": 24.91,
+    "east": 121.62,
+    "north": 25.11
+  },
+  "width": 2048,
+  "height": 2825,
+  "scenarios": [
+    "6h150",
+    "6h250",
+    "6h350",
+    "12h200",
+    "12h300",
+    "12h400",
+    "24h200",
+    "24h350",
+    "24h500",
+    "24h650"
+  ]
+}

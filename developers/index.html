@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="大台北預售建案建商研究：先評估履約、工程制度、財務治理與售後保固，再依事件嚴重度、時間與重複性調整分數。" />
+    <title>建商研究｜大台北預售建案</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="/src/developers.css" />
+  </head>
+  <body class="developer-page">
+    <header class="topbar">
+      <a class="brand" href="../"><span class="brand-mark">D</span><span>建商研究<small>DEVELOPER RESEARCH</small></span></a>
+      <nav><a href="../">大台北預售建案</a><a href="#methodology">評分方法</a></nav>
+    </header>
+
+    <main>
+      <section class="developer-hero">
+        <span class="eyebrow"><span></span>DEVELOPER DUE DILIGENCE</span>
+        <h1>不只看等級，<br><em>看分數怎麼來。</em></h1>
+        <p>每一家都先查公開證據，再由五個購屋風險維度算出總分與等級。本站案量不再參與品質評分；證據不足就維持待評估，不用品牌印象硬分級。</p>
+      </section>
+
+      <section class="developer-index">
+        <div class="research-progress" aria-label="建商研究進度">
+          <span><b id="profile-total">0</b> 家已有研究檔案</span>
+          <span><b id="rated-project-total">0</b> 筆建案已評等</span>
+          <span><b id="pending-project-total">0</b> 筆尚待逐家查核</span>
+        </div>
+        <div class="developer-toolbar">
+          <label>查核標籤<select id="developer-flag"><option value="all" selected>全部標籤</option><option value="major">重大公安／履約風險</option><option value="governance">交易／治理風險</option><option value="regulatory">公平會裁處紀錄</option><option value="limited">資料有限，保守評分</option><option value="clear">無上述標籤</option></select></label>
+          <label>建商搜尋<input id="developer-search" type="search" placeholder="輸入建商名稱"></label>
+          <label>最低等級<select id="developer-rating"><option value="all" selected>全部等級</option><option value="S">S 級</option><option value="A">A 級以上</option><option value="B">B 級以上</option><option value="C">C 級以上</option></select></label>
+          <label>排序<select id="developer-sort"><option value="score">綜合研究分</option><option value="projects">本站建案數</option><option value="confidence">證據來源數</option><option value="name">建商名稱</option></select></label>
+        </div>
+        <div class="developer-summary"><b id="developer-count">0</b> 家建商符合條件</div>
+        <div class="developer-flag-guide"><span class="developer-flag flag-major">重大公安／履約風險</span><p>塌陷、損鄰、無法完工、停工、信用或重大信託事件。</p><span class="developer-flag flag-governance">交易／治理風險</span><p>重要資訊未揭露、契約、信託或治理缺失，不等同公安事故。</p><span class="developer-flag flag-regulatory">公平會裁處紀錄</span><p>一般廣告或行政裁處；已撤銷與歷史紀錄另行標示。</p><span class="developer-flag flag-limited">資料有限，保守評分</span><p>公開證據不足而壓低分數，不等於已發現品質問題。</p></div>
+        <div class="developer-audit-note"><strong>兩項官方資料庫已全量查核</strong><span>759 家建商已逐一比對公平會 <b id="ftc-audit-total">0</b> 筆行政決定，以及環境部 <b id="environment-audit-total">0</b> 筆「情節重大」裁罰（資料產生日期 <b id="ftc-audit-date">—</b>）。完整名稱命中會列出原始資料；已撤銷處分不扣分，歷史紀錄與近期案件分開判讀。法院、建管公安、消保與信託資料仍持續跨機關覆核，因此「沒有標籤」不等於已證明零風險。</span></div>
+        <div id="developer-cards" class="developer-cards"></div>
+        <div id="developer-empty" class="empty" hidden>沒有符合目前條件的建商。</div>
+      </section>
+
+      <section class="score-method" id="methodology">
+        <div class="section-heading"><div><span class="kicker">SCORING METHOD</span><h2>評分怎麼看</h2></div></div>
+          <div class="method-grid">
+            <article><b>30%</b><h3>履約與推案</h3><p>檢查長期推案、交屋與持續經營能力。案量只作履歷佐證，不因「蓋得多」直接給高分。</p></article>
+            <article><b>30%</b><h3>工程品質制度</h3><p>查品管流程、材料與供應商查驗、施工標準、第三方驗證；不是用廣告文案判斷。</p></article>
+            <article><b>20%</b><h3>財務與治理</h3><p>查年報、財報、治理與風險資訊是否長期、完整且可追溯。公開發行本身不保證品質。</p></article>
+            <article><b>20%</b><h3>售後與保固</h3><p>查專責售服、報修流程、處理績效及契約保固；公司自行公布數據會明確標示。</p></article>
+          </div>
+          <div class="risk-adjustment-method">
+            <div><span>一般裁處</span><b>0–5 分</b><p>公平會一般廣告或交易資訊裁處；撤銷案件不扣分，舊案降低影響，不設定評級上限。</p></div>
+            <div><span>交易／治理</span><b>3–12 分</b><p>未揭露、契約、信託或治理事件；近期或重複發生時，評級最高 B。</p></div>
+            <div><span>重大公安／履約</span><b>8–25 分</b><p>公安事故、重大履約或信用風險，評級最高 B；涉及無法完工、退票、停工或營運存續者最高 C。</p></div>
+          </div>
+          <div class="research-warning"><strong>基礎能力 − 風險調整 ＝ 最終分</strong><span>先以四項能力加權，再依事件嚴重度、時間與重複性扣分。分數門檻為 S ≥ 90、A 82–89、B 72–81、C &lt; 72，但重大或近期重複事件會再套用評級上限；因此同分建商可能因風險狀態而有不同評級。資料有限者會標示「資料有限，保守評分」。這是公司級研究，不是政府評鑑，也不能取代個案驗屋、契約與營造廠查核。</span></div>
+      </section>
+    </main>
+    <footer><span>大台北預售建案 · Developer research</span><span>研究型工具，分數不構成購屋、投資或品質保證</span></footer>
+    <script type="module" src="/src/developers.js"></script>
+  </body>
+</html>

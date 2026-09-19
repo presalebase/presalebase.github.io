@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="找預售屋，從基地周邊開始看。比較大台北建案的捷運、建商、價格與環境風險。" />
+    <title>大台北預售建案｜捷運、建商與基地環境比較</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.css" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="/src/map.css" />
+  </head>
+  <body class="mature-page" data-scope="mature">
+    <header class="topbar">
+      <a class="brand" href="./"><span class="brand-mark">P</span><span>大台北預售建案<small>GREATER TAIPEI PRESALE</small></span></a>
+      <nav><a href="#map-section">地圖探索</a><a href="#projects">預售建案</a><a href="./developers/">建商研究</a><a href="#sources">資料說明</a></nav>
+    </header>
+
+    <main>
+      <section class="hero mature-hero">
+        <div class="eyebrow"><span></span> TAIPEI × NEW TAIPEI × ALL METRO LINES</div>
+        <h1>大台北預售建案<br><em>找預售屋，從基地周邊開始看</em></h1>
+        <p>一次比較捷運、建商、價格與基地周邊環境。收錄已領建照、完成預售備查、預售中或近期完工的案件；可靠定位者顯示於地圖，其餘仍完整保留在清單。</p>
+        <aside class="risk-discovery" aria-label="環境與災害圖層介紹">
+          <div><span class="risk-discovery-icon" aria-hidden="true">◇</span><p><b>選房也要看基地周圍</b><small>地圖可疊加降雨淹水、土壤液化、活動斷層，以及重大與生活影響設施。</small></p></div>
+          <button type="button" data-open-risk>開啟環境／災害圖層 <span>→</span></button>
+        </aside>
+        <div class="hero-actions"><span class="updated">第一版資料基準<br><strong>2026.09.14</strong></span></div>
+      </section>
+
+      <section class="stats-wrap" aria-label="資料統計">
+        <article><span>預售建案</span><strong id="total-count">—</strong><small>含表格內待定位案件</small></article>
+        <article><span>涵蓋行政區</span><strong id="district-count">—</strong><small>台北市＋新北市</small></article>
+        <article><span>平均步行</span><strong id="walk-average">—</strong><small>分鐘，初篩估計</small></article>
+        <article><span>收錄階段</span><strong>4</strong><small>建照／備查／預售／近期完工</small></article>
+      </section>
+
+      <section class="map-section" id="map-section">
+        <div class="section-heading inverse"><div><span class="kicker">ALL-LINE MAP</span><h2>大台北捷運生活圈</h2></div><p>顯示全捷運路網與已覆核基地。圖上的捷運步行時間目前仍為初篩估計；正式購屋前應以實際基地出入口重新計算。</p></div>
+        <div class="map-frame"><div id="map"></div><aside class="map-legend"><strong>圖例</strong><span><i class="rail operational"></i>捷運路線</span><span><i class="station-symbol"></i>捷運車站</span><span><i class="pin s"></i>S 級建商</span><span><i class="pin a"></i>A 級建商</span><span><i class="pin b"></i>B 級建商</span><span><i class="pin c"></i>C 級建商</span><span><i class="pin nr"></i>？＝尚待研究</span><span><i class="pin na"></i>·＝非建商品牌</span><span><i class="pin pending"></i>半透明＝宗地中心／範圍定位</span></aside></div>
+        <div class="risk-links"><strong>購屋前另查官方圖資</strong><a href="https://dmap.ncdr.nat.gov.tw/1109/map/" target="_blank" rel="noopener">淹水潛勢 ↗</a><a href="https://liquefaction.gsmma.gov.tw/cgs/Web/Map.aspx" target="_blank" rel="noopener">土壤液化 ↗</a><a href="https://faultgis.gsmma.gov.tw/gis/" target="_blank" rel="noopener">活動斷層 ↗</a><small>圖層是區域初篩，不能取代個案鑽探、結構或估價調查。</small></div>
+      </section>
+
+      <section class="projects" id="projects">
+        <div class="section-heading"><div><span class="kicker">PRESALE PROJECT INDEX</span><h2>預售建案清單</h2></div></div>
+        <div class="filter-panel mature-filters">
+          <label>城市<select id="city-filter"><option value="all">台北市＋新北市</option><option>台北市</option><option>新北市</option></select></label>
+          <label>行政區<select id="district-filter"><option value="all">全部行政區</option></select></label>
+          <label class="combined-transit-filter">捷運路線／車站<select id="transit-filter"><option value="all">全部路線與車站</option></select></label>
+          <label class="separate-transit-filter">捷運路線<select id="line-filter"><option value="all">全部路線</option><option value="R">淡水信義線</option><option value="G">松山新店線</option><option value="O">中和新蘆線</option><option value="BL">板南線</option><option value="BR">文湖線</option><option value="Y">環狀線</option><option value="A">機場捷運</option><option value="V">淡海輕軌</option><option value="K">安坑輕軌</option><option value="LB">三鶯線</option><option value="LG">汐東線</option></select></label>
+          <label class="separate-transit-filter">捷運站<select id="station-filter"><option value="all">全部車站</option></select></label>
+          <label>目前進度<select id="status-filter"><option value="all">全部建案階段</option><option value="已領建照">已領建照</option><option value="預售備查">預售備查</option><option value="預售中">預售中</option><option value="近期完工">近期完工</option></select></label>
+          <label>建商評等<select id="rating-filter"><option value="all">全部評等</option><option value="S">S 級以上</option><option value="A">A 級以上</option><option value="B" selected>B 級以上</option><option value="C">C 級以上</option><option value="NR">尚待研究</option><option value="NA">非建商品牌</option></select></label>
+          <label>步行時間<select id="walk-filter"><option value="999" selected>不限距離</option><option value="30">30 分鐘內</option><option value="20">20 分鐘內</option><option value="15">15 分鐘內</option><option value="12">12 分鐘內</option><option value="8">8 分鐘內</option><option value="5">5 分鐘內</option></select></label>
+          <label class="search-label">搜尋<input id="search-filter" type="search" placeholder="建案、區域、建商或車站"></label>
+        </div>
+        <div class="table-shell">
+          <div class="table-meta"><span><b id="result-count">0</b> 筆結果</span><span class="legend"><i class="dot live"></i>正式門牌／明確位置 <i class="dot estimate"></i>宗地中心／範圍定位</span></div>
+          <div class="table-top-scroll" aria-label="表格水平捲動"><div></div></div><div class="table-scroll"><table><thead><tr><th>建案／建照名稱</th><th>捷運步行</th><th>建商／評等</th><th>目前進度</th><th>預計完工</th><th>類型</th><th>坪數</th><th>預估價格</th><th>地址／地圖</th><th>資料來源／定位依據</th></tr></thead><tbody id="project-rows"></tbody></table></div>
+          <div id="empty-state" class="empty" hidden>沒有符合目前條件的預售建案。</div>
+        </div>
+        <div class="prototype-alert location-status-note"><b>定位狀態說明</b><span>已確認官方門牌、實價登錄門牌或明確路口的案件會顯示於地圖；尚待確認精確位置者仍保留在清單中，並標示為「待定位」。</span></div>
+      </section>
+
+      <section class="sources" id="sources">
+        <div class="section-heading"><div><span class="kicker">DATA SCOPE</span><h2>收錄門檻與資料來源</h2></div><p>預售建案版以正式政府紀錄為入口，再逐案核對基地位置與建商；不收土地整合或未提出建照的市場傳聞。</p></div>
+        <div class="source-grid">
+          <article><span class="phase">STAGE 01</span><h3>已領建照</h3><p>採台北市建管處與新北市工務局建築執照資料，確認執照、基地、用途與起造人。</p><a href="https://data.gov.tw/dataset/128200" target="_blank" rel="noopener">台北市建照資料 ↗</a><a href="https://data.gov.tw/dataset/123639" target="_blank" rel="noopener">新北市建築執照資料 ↗</a></article>
+          <article><span class="phase">STAGE 02</span><h3>預售備查</h3><p>採內政部自 110 年 7 月起的預售屋建案備查開放資料，核對案名、起造人、基地與建照。</p><a href="https://data.gov.tw/dataset/176351" target="_blank" rel="noopener">預售屋建案備查資料 ↗</a></article>
+          <article><span class="phase">STAGE 03</span><h3>預售與近期完工</h3><p>使用實價登錄成交資料補充坪數與價格；成交紀錄不代表仍有可售戶別。</p><a href="https://lvr.land.moi.gov.tw/" target="_blank" rel="noopener">內政部實價登錄 ↗</a></article>
+        </div>
+      </section>
+    </main>
+    <footer><span>大台北預售建案 · Presale projects</span><span>研究型工具，資料仍應回到政府原始紀錄核對</span></footer>
+    <script src="https://unpkg.com/maplibre-gl@5.6.2/dist/maplibre-gl.js"></script>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
