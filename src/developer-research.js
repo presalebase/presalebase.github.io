@@ -28,7 +28,7 @@ const normalizeLegacyCaveat=(text,rating)=>{
 };
 
 // 預售備查的「起造人」可能是建經、銀行、政府、更新會或自然人；
-// 這些角色不是住宅品牌，不應混入尚待研究的建商統計。
+// 這些角色不是住宅品牌，不應混入未評等的建商統計。
 export const isNonBuilderRole=value=>{
   const text=String(value||'').trim();
   // 紀州樂章為地主自主更新案；台灣金融聯合都市更新服務是全案管理服務者，並非投資興建品牌。

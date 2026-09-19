@@ -26,7 +26,7 @@ function sourceLinksHtml(project){
   }).join('');
 }
 const ratingRank={NA:-1,NR:0,C:1,B:2,A:3,S:4};
-const ratingLabel=rating=>rating==='NR'?'尚待研究':rating==='NA'?'不適用':rating+'級';
+const ratingLabel=rating=>rating==='NR'?'未評等':rating==='NA'?'不適用':rating+'級';
 const metroColors={BR:'#c48c31',R:'#e3002c',G:'#008659',O:'#f8b61c',BL:'#0070bd',Y:'#ffdb00',A:'#8246af',K:'#7bbf43',LB:'#78c7d2',V:'#78c7d2',LG:'#9ac43c'};
 const projects=matureProjects;
 const state={projects:[...projects],markers:new Map()};
