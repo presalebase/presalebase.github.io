@@ -57,7 +57,23 @@ const verifiedTextCorrections=new Map(Object.entries({
   '台北市萬華區糖?里大理街135號 共4筆':'台北市萬華區糖廍里大理街135號 共4筆',
   '松江桓?':'松江．桓榀',
 }));
+// Pre-sale filings can name a construction-management company as the builder.
+// These overrides are limited to cases corroborated by a developer project site
+// or a municipal contract / inspection record; do not infer from a project name.
 const verifiedProjectBuilderCorrections=new Map([
+  ['璞園知山','璞園開發'],
+  ['亞昕華威','亞昕國際開發股份有限公司'],
+  ['亞昕敦南','亞昕國際開發股份有限公司'],
+  ['佳元瑞吉','佳元建設股份有限公司'],
+  ['璞園百聿','璞園開發'],
+  ['大隱奇岩','大隱開發建設'],
+  ['潤泰之森','潤泰創新國際股份有限公司'],
+  ['三輝序慕','三輝建設'],
+  ['新濠漾III-巴黎公園','新濠建設事業股份有限公司'],
+  ['三輝白昀','三輝建設'],
+  ['碩樺拾景','碩樺建設股份有限公司'],
+  ['力方越','力方開發事業股份有限公司'],
+  ['敦仰','敦仰建設股份有限公司'],
   ['?暘城中央','備查起造人：咊暘建設股份有限公司'],
   ['文心慕慕','備查起造人：北碁建設股份有限公司（文心建設）'],
   ['璽來登帝璽','共同投資興建：家悦開發地產有限公司、家聖建設開發股份有限公司'],
@@ -78,6 +94,21 @@ const verifiedProjectBuilderCorrections=new Map([
   ['中?中央廣場、??','備查起造人：中悅建設開發股份有限公司'],
   ['京東賞','共同投資興建：駿華開發建設股份有限公司／忠碩不動產股份有限公司'],
   ['聿德觀璟','備查起造人：聿德企業股份有限公司（統編 83413800）'],
+]);
+const verifiedProjectOfficialWebsiteCorrections=new Map([
+  ['璞園知山','https://pauian-universe.com.tw/zhishan/'],
+  ['亞昕華威','https://www-ws.gov.taipei/001/Upload/305/relfile/11498/7146725/8ebba9cd-3ab5-4ef3-bf24-78443fa145d4.pdf'],
+  ['亞昕敦南','https://www.newland.tw/one/unimaginable/'],
+  ['佳元瑞吉','https://jiayuangroup.com.tw/%E4%BD%B3%E5%85%83%E7%86%B1%E9%8A%B7/'],
+  ['璞園百聿','https://www.pauian-universe.com.tw/baiyu/'],
+  ['大隱奇岩','https://newhouse.591.com.tw/140233/detail'],
+  ['潤泰之森','https://www.rt-develop.com.tw/tw/Case/CLASSIC/1702'],
+  ['三輝序慕','https://www.sanlight.com.tw/'],
+  ['新濠漾III-巴黎公園','https://www-ws.land.ntpc.gov.tw/Download.ashx?icon=..pdf&n=5paw5r%2Bg5ry%2BSUlJLeW3tOm7juWFrOWcki5wZGY%3D&u=LzAwMS9VcGxvYWQvMS9yZWxmaWxlLzk2NzkvNzI5NDk1L2YzZDRjNmUzLTk4NzMtNDc3OC1iMTJkLTg2ZmU4ODVlMTE3Ni5wZGY%3D'],
+  ['三輝白昀','https://sanhuibaiyun.com/'],
+  ['碩樺拾景','https://endlessviews.tw/'],
+  ['力方越','https://www.lifangyue.com.tw/'],
+  ['敦仰','https://www.dunyang.com.tw/'],
 ]);
 const verifiedProjectNameCorrections=new Map([
   ['?暘城中央','咊暘城中央'],
@@ -100,6 +131,7 @@ export const matureProjects=rawMatureProjects.map(project=>{
   const repaired={...project,id:String(project.id).replace(/[?？]+/g,'missing')};
   repaired.name=verifiedProjectNameCorrections.get(project.name)||repaired.name;
   repaired.builder=verifiedProjectBuilderCorrections.get(project.name)||repaired.builder;
+  repaired.officialWebsiteUrl=verifiedProjectOfficialWebsiteCorrections.get(project.name)||repaired.officialWebsiteUrl;
   for(const field of visibleTextFields)repaired[field]=repairRegistryText(repaired[field]);
   const research=findDeveloperResearch(repaired.builder);
   if(research){
