@@ -132,6 +132,9 @@ const verifiedProjectBuilderCorrections=new Map([
   ['新板樂睦','宸邦企業有限公司'],
   ['光全御苑','光全建設股份有限公司'],
   ['飛鳥之丘','豐佳建設股份有限公司（白天鵝建設機構）'],
+  ['傳家堡','道陽開發建設股份有限公司'],
+  ['碧澄市','襄澐建設有限公司'],
+  ['巨東‧藏','巨東開發建設股份有限公司'],
   ['?暘城中央','備查起造人：咊暘建設股份有限公司'],
   ['文心慕慕','備查起造人：北碁建設股份有限公司（文心建設）'],
   ['璽來登帝璽','共同投資興建：家悦開發地產有限公司、家聖建設開發股份有限公司'],
@@ -215,6 +218,9 @@ const verifiedProjectOfficialWebsiteCorrections=new Map([
   ['新板樂睦','https://www.sinyi.com.tw/communitylist/communityinfo/0030281'],
   ['光全御苑','https://www.hiyes.tw/BuildingCase/Show/8ec9e79c-533b-429e-ba5b-f415b1a481c9'],
   ['飛鳥之丘','https://swan.com.tw/promotiondetail/10'],
+  ['傳家堡','https://market.591.com.tw/5907451/overview'],
+  ['碧澄市','https://newhouse.591.com.tw/127022/detail'],
+  ['巨東‧藏','https://ju-dong-tw.com/work/%E5%B7%A8%E6%9D%B1%E5%BB%BA%E6%A1%88-%E9%A0%90%E6%8E%A8%E5%80%8B%E6%A1%88/'],
 ]);
 const verifiedProjectNameCorrections=new Map([
   ['?暘城中央','咊暘城中央'],
