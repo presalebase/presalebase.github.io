@@ -8,6 +8,8 @@ const ratingRank={S:4,A:3,B:2,C:1,NR:0};
 const escapeHtml=value=>String(value??'').replace(/[&<>'"]/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
 const projectCount=profile=>matureProjects.filter(project=>profile.aliases.some(alias=>String(project.builder).includes(alias))).length;
 const profiles=developerResearch.map(profile=>({...profile,count:projectCount(profile),flags:getDeveloperFlags(profile)}));
+const requestedBuilder=new URLSearchParams(window.location.search).get('builder');
+const requestedProfile=profiles.find(profile=>profile.id===requestedBuilder);
 const dimensions=developerRubric.map(item=>[item.label,item.key]);
 const cards=document.querySelector('#developer-cards');
 const countNode=document.querySelector('#developer-count');
@@ -55,7 +57,7 @@ function render(){
   result.sort((a,b)=>sort==='projects'?b.count-a.count:sort==='confidence'?b.sources.length-a.sources.length:sort==='name'?a.name.localeCompare(b.name,'zh-Hant'):(b.score??-1)-(a.score??-1)||b.count-a.count);
   countNode.textContent=result.length;
   empty.hidden=result.length>0;
-  cards.innerHTML=result.map(profile=>`<article class="developer-card">
+  cards.innerHTML=result.map(profile=>`<article class="developer-card" id="developer-${escapeHtml(profile.id)}">
     <header><span class="grade grade-${profile.rating.toLowerCase()}">${profile.rating==='NR'?'—':profile.rating}</span><div><h2>${escapeHtml(profile.name)}</h2><small>研究信心 ${profile.confidence} · 本站 ${profile.count} 案</small></div><strong>${profile.score??'—'}<small>${profile.score==null?'不評分':'/100'}</small></strong></header>
     ${(profile.flags.major||profile.flags.governance||profile.flags.regulatory||profile.flags.limited)?`<div class="developer-flags">${profile.flags.major?`<span class="developer-flag flag-major">${developerFlagDefinitions.major.label}</span>`:''}${profile.flags.governance?`<span class="developer-flag flag-governance">${developerFlagDefinitions.governance.label}</span>`:''}${profile.flags.regulatory?`<span class="developer-flag flag-regulatory">${developerFlagDefinitions.regulatory.label}</span>`:''}${profile.flags.limited?`<span class="developer-flag flag-limited">${developerFlagDefinitions.limited.label}</span>`:''}</div>`:''}
     <div class="developer-score-equation" aria-label="計分結果"><span><small>基礎能力</small><b>${profile.baseScore??'—'}</b></span><i>−</i><span><small>風險調整</small><b>${profile.riskAdjustment??0}</b></span><i>＝</i><span class="score-final"><small>最終分</small><b>${profile.score??'—'}</b></span>${profile.ratingCap?`<em>評級上限 ${profile.ratingCap}</em>`:''}</div>
@@ -73,4 +75,7 @@ document.querySelector('#developer-search').addEventListener('input',render);
 document.querySelector('#developer-rating').addEventListener('change',render);
 document.querySelector('#developer-flag').addEventListener('change',render);
 document.querySelector('#developer-sort').addEventListener('change',render);
+if(requestedProfile){
+  document.querySelector('#developer-search').value=requestedProfile.name;
+}
 render();
