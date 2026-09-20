@@ -106,6 +106,9 @@ const verifiedProjectBuilderCorrections=new Map([
   ['上林富邑','金御建設股份有限公司'],
   ['天母蒔麗','威帝建設股份有限公司'],
   ['神隱村','富裔實業股份有限公司'],
+  ['富甲寶植','寶和建設'],
+  ['德安美麗綻','德安開發股份有限公司'],
+  ['璞晛','璞永建設股份有限公司'],
   ['?暘城中央','備查起造人：咊暘建設股份有限公司'],
   ['文心慕慕','備查起造人：北碁建設股份有限公司（文心建設）'],
   ['璽來登帝璽','共同投資興建：家悦開發地產有限公司、家聖建設開發股份有限公司'],
@@ -163,6 +166,9 @@ const verifiedProjectOfficialWebsiteCorrections=new Map([
   ['上林富邑','https://land.gov.taipei/News.aspx?n=E8D96FA6BB2B310E&sms=06A4332DF37FE327'],
   ['天母蒔麗','https://land.gov.taipei/News_Content.aspx?n=C5E5C63DD6252B3C&s=EF6DBCC43813DCD9&sms=9C2D5C5091ACE29B'],
   ['神隱村','https://www.kingland.com.tw/TradChinese/News/Detail/200'],
+  ['富甲寶植','https://money.udn.com/money/story/11799/9563187'],
+  ['德安美麗綻','https://land.gov.taipei/News.aspx?PageSize=20&n=E8D96FA6BB2B310E&page=2&sms=06A4332DF37FE327'],
+  ['璞晛','https://www.pycg.com.tw/index.php?cla=progress-of-project-detailed&id=online&project=25'],
 ]);
 const verifiedProjectNameCorrections=new Map([
   ['?暘城中央','咊暘城中央'],
