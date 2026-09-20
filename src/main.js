@@ -597,6 +597,10 @@ $('#line-filter')?.addEventListener('change',()=>{updateStationOptions();syncTra
 $('#transit-filter')?.addEventListener('change',event=>{
   const [kind,line,...stationParts]=event.target.value.split(':');
   $('#line-filter').value=kind==='all'?'all':line;
+  // Selecting a whole line must clear a previously chosen interchange station
+  // (for example, 大安站 on the red line), otherwise the old station keeps
+  // narrowing the result even though the UI says the whole line is selected.
+  if(kind!=='station')$('#station-filter').value='all';
   updateStationOptions();
   if(kind==='station')$('#station-filter').value=stationParts.join(':');
   syncTransitFilter();render();
