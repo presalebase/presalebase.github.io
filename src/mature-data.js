@@ -109,6 +109,8 @@ const verifiedProjectBuilderCorrections=new Map([
   ['富甲寶植','寶和建設'],
   ['德安美麗綻','德安開發股份有限公司'],
   ['璞晛','璞永建設股份有限公司'],
+  ['馥新綻','元陽建設股份有限公司'],
+  ['富品．南京','富品建設股份有限公司／富昶建設股份有限公司'],
   ['?暘城中央','備查起造人：咊暘建設股份有限公司'],
   ['文心慕慕','備查起造人：北碁建設股份有限公司（文心建設）'],
   ['璽來登帝璽','共同投資興建：家悦開發地產有限公司、家聖建設開發股份有限公司'],
@@ -169,6 +171,8 @@ const verifiedProjectOfficialWebsiteCorrections=new Map([
   ['富甲寶植','https://money.udn.com/money/story/11799/9563187'],
   ['德安美麗綻','https://land.gov.taipei/News.aspx?PageSize=20&n=E8D96FA6BB2B310E&page=2&sms=06A4332DF37FE327'],
   ['璞晛','https://www.pycg.com.tw/index.php?cla=progress-of-project-detailed&id=online&project=25'],
+  ['馥新綻','https://market.591.com.tw/5935213/overview'],
+  ['富品．南京','https://creator-taiwan.com/project/%E5%AF%8C%E5%93%81%C2%B7%E5%8D%97%E4%BA%AC/'],
 ]);
 const verifiedProjectNameCorrections=new Map([
   ['?暘城中央','咊暘城中央'],
