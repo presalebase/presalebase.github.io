@@ -91,7 +91,8 @@ function popupHtml(project){
   const warning=isMapped(project)?'':'<strong class="popup-location-warning">待定位候選點：此處是捷運生活圈推估，不是基地座標</strong>';
   const mapsLink=hasGoogleMapsListing(project)?`<a href="${mapsUrl(project)}" target="_blank" rel="noopener">在 Google Maps 開啟建案 ↗</a>`:'';
   const transit=Number.isFinite(project.walk)?`${escapeHtml(project.station)}站約 ${project.walk} 分`:'捷運距離待定位';
-  return `<div class="popup">${warning}<small>${escapeHtml(project.district)} · ${transit}</small><h3>${escapeHtml(project.name)}</h3><p>${escapeHtml(project.status)}<br>${escapeHtml(project.builder)}（${escapeHtml(ratingLabel(project.rating))}）</p>${mapsLink}</div>`;
+  const detailsLink=`<a class="popup-project-summary" href="#projects" data-project-details="${escapeHtml(project.id)}" aria-label="查看 ${escapeHtml(project.name)} 的詳細資料"><small>${escapeHtml(project.district)} · ${transit}</small><h3>${escapeHtml(project.name)}</h3><p>${escapeHtml(project.status)}<br>${escapeHtml(project.builder)}（${escapeHtml(ratingLabel(project.rating))}）</p><span>查看詳細資訊</span></a>`;
+  return `<div class="popup">${warning}${detailsLink}${mapsLink}</div>`;
 }
 function addProjectMarkers(){
   projects.filter(hasCoordinates).forEach(project=>{
@@ -607,6 +608,16 @@ $('#transit-filter')?.addEventListener('change',event=>{
 });
 $('#search-filter').addEventListener('input',render);
 document.querySelectorAll('[data-scroll]').forEach(button=>button.addEventListener('click',()=>$('#'+button.dataset.scroll).scrollIntoView({behavior:'smooth'})));
+document.addEventListener('click',event=>{
+  const trigger=event.target.closest('[data-project-details]');
+  if(!trigger)return;
+  event.preventDefault();
+  const row=[...document.querySelectorAll('tr[data-id]')].find(item=>item.dataset.id===String(trigger.dataset.projectDetails));
+  if(!row)return;
+  row.scrollIntoView({behavior:'smooth',block:'center'});
+  row.classList.add('project-detail-focus');
+  window.setTimeout(()=>row.classList.remove('project-detail-focus'),1600);
+});
 document.querySelectorAll('[data-open-risk]').forEach(button=>button.addEventListener('click',()=>{
   $('#map-section').scrollIntoView({behavior:'smooth'});
   window.setTimeout(()=>{
