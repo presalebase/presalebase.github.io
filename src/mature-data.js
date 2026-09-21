@@ -285,7 +285,7 @@ const repairRegistryText=value=>{
   return `${readable||'名稱'}（缺字待核）`;
 };
 const visibleTextFields=['name','builder','district','station','address','status','completion','type','size','price','source','locationAccuracy'];
-export const matureProjects=rawMatureProjects.map(project=>{
+const normalizedMatureProjects=rawMatureProjects.map(project=>{
   const repaired={...project,id:String(project.id).replace(/[?？]+/g,'missing')};
   repaired.name=verifiedProjectNameCorrections.get(project.name)||repaired.name;
   repaired.builder=verifiedProjectBuilderCorrections.get(project.name)||repaired.builder;
@@ -303,4 +303,57 @@ export const matureProjects=rawMatureProjects.map(project=>{
     repaired.ratingBasis='待評估：尚未完成一致口徑的公司級公開資料查核，不以品牌名稱或案量推定等級';
   }
   return repaired;
+});
+
+// Missing prices are shown as a deliberately broad screening estimate, never as
+// an asking price or a substitute for a transaction record.  The model only
+// uses already displayed, numeric per-ping prices and never feeds estimates
+// back into its own reference pool.
+const perPingPrice=value=>{
+  const match=String(value||'').match(/([0-9]+(?:\.[0-9]+)?)\s*萬\s*[／/]\s*坪/);
+  return match?Number(match[1]):null;
+};
+const quantile=(values,percentile)=>{
+  const index=(values.length-1)*percentile;
+  const lower=Math.floor(index),upper=Math.ceil(index);
+  return values[lower]+(values[upper]-values[lower])*(index-lower);
+};
+const priceStats=records=>{
+  const values=records.map(record=>perPingPrice(record.price)).filter(Number.isFinite).sort((a,b)=>a-b);
+  if(!values.length)return null;
+  return {count:values.length,median:quantile(values,.5),low:quantile(values,.25),high:quantile(values,.75)};
+};
+const priceReferences=normalizedMatureProjects.filter(project=>Number.isFinite(perPingPrice(project.price)));
+const stationPriceStats=new Map();
+const districtPriceStats=new Map();
+const cityPriceStats=new Map();
+for(const project of priceReferences){
+  const stationKey=`${project.city}|${project.station}`;
+  const districtKey=`${project.city}|${project.district}`;
+  stationPriceStats.set(stationKey,[...(stationPriceStats.get(stationKey)||[]),project]);
+  districtPriceStats.set(districtKey,[...(districtPriceStats.get(districtKey)||[]),project]);
+  cityPriceStats.set(project.city,[...(cityPriceStats.get(project.city)||[]),project]);
+}
+for(const [key,records] of stationPriceStats)stationPriceStats.set(key,priceStats(records));
+for(const [key,records] of districtPriceStats)districtPriceStats.set(key,priceStats(records));
+for(const [key,records] of cityPriceStats)cityPriceStats.set(key,priceStats(records));
+const roundedPrice=value=>Math.round(value);
+const estimatePrice=project=>{
+  if(Number.isFinite(perPingPrice(project.price)))return null;
+  const stationKey=`${project.city}|${project.station}`;
+  const districtKey=`${project.city}|${project.district}`;
+  const stationStats=project.station&&project.station!=='待定位'?stationPriceStats.get(stationKey):null;
+  const districtStats=districtPriceStats.get(districtKey);
+  const cityStats=cityPriceStats.get(project.city);
+  const selected=stationStats?.count>=4?{...stationStats,basis:`${project.station}站生活圈`}:
+    districtStats?.count>=6?{...districtStats,basis:`${project.district}`}:
+    cityStats?{...cityStats,basis:project.city}:null;
+  if(!selected)return null;
+  const low=Math.max(1,roundedPrice(selected.low));
+  const high=Math.max(low+1,roundedPrice(selected.high));
+  return {low,high,median:roundedPrice(selected.median),count:selected.count,basis:selected.basis};
+};
+export const matureProjects=normalizedMatureProjects.map(project=>{
+  const priceEstimate=estimatePrice(project);
+  return priceEstimate?{...project,price:`模型推估 ${priceEstimate.low}–${priceEstimate.high} 萬／坪`,priceEstimate}:project;
 });
